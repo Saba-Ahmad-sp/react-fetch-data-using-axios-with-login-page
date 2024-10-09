@@ -15,18 +15,19 @@ const BooksList = () => {
     }
   }, [isLoggedIn]);
 
-  const fetchImages = async () => {
-    try {
-      const response = await axios
-        .get(
-          "https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyB70zb22yfJ8JxXcJHTKJKR9xQKq4UxIHw&maxResults=40"
-        )
-        .then((response) => setImages(response.data.items));
-    } catch (error) {
-      console.error("Error fetching images:", error);
-      setError("Failed to fetch images. Please try again.");
-    }
-  };
+const fetchImages = async () => {
+  try {
+    const response = await axios
+      .get(
+        `https://www.googleapis.com/books/v1/volumes?q=react&key=${process.env.REACT_APP_GOOGLE_BOOKS_API_KEY}&maxResults=40`
+      )
+      .then((response) => setImages(response.data.items));
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    setError("Failed to fetch images. Please try again.");
+  }
+};
+
 
   const validateEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
